@@ -93,17 +93,26 @@ export default function NovoLaudo() {
       const payload = {
         tipo_doc: tipoDoc,
         empresa: {
-          ...empresa,
-          grau_risco: Number(empresa.grau_risco),
-          ambientes: empresa.ambientes_str.split(',').map((s) => s.trim()).filter(Boolean),
+          razao_social: empresa.razao_social,
+          nome_fantasia: empresa.nome_fantasia || '',
+          cnpj: empresa.cnpj,
+          endereco: empresa.endereco,
+          cnae: empresa.cnae,
+          grau_risco: parseInt(empresa.grau_risco, 10),
+          ambientes: empresa.ambientes_str
+            ? empresa.ambientes_str.split(',').map((s) => s.trim()).filter(Boolean)
+            : [],
+          banheiros: empresa.banheiros || '',
         },
         cargos: cargos.map((c) => ({
           nome: c.nome,
-          cbo: c.cbo,
+          cbo: c.cbo || '',
           atividades: c.atividades,
-          jornada: c.jornada,
-          qtde_funcionarios: Number(c.qtde_funcionarios),
-          epis_fornecidos: c.epis_fornecidos_str.split(',').map((s) => s.trim()).filter(Boolean),
+          jornada: c.jornada || '08h/dia — 44h/semana',
+          qtde_funcionarios: parseInt(c.qtde_funcionarios, 10) || 1,
+          epis_fornecidos: c.epis_fornecidos_str
+            ? c.epis_fornecidos_str.split(',').map((s) => s.trim()).filter(Boolean)
+            : [],
         })),
       }
       const res = await client.post('/api/v1/documentos/gerar', payload)
