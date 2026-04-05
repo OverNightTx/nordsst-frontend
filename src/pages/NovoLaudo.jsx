@@ -90,6 +90,7 @@ export default function NovoLaudo() {
     setLoading(true)
     setError('')
     try {
+      const grauRisco = parseInt(empresa.grau_risco, 10)
       const payload = {
         tipo_doc: tipoDoc,
         empresa: {
@@ -98,7 +99,7 @@ export default function NovoLaudo() {
           cnpj: empresa.cnpj,
           endereco: empresa.endereco,
           cnae: empresa.cnae,
-          grau_risco: parseInt(empresa.grau_risco, 10),
+          grau_risco: Number.isNaN(grauRisco) ? 3 : grauRisco,
           ambientes: empresa.ambientes_str
             ? empresa.ambientes_str.split(',').map((s) => s.trim()).filter(Boolean)
             : [],
@@ -115,9 +116,11 @@ export default function NovoLaudo() {
             : [],
         })),
       }
+      console.log('PAYLOAD:', JSON.stringify(payload, null, 2))
       const res = await client.post('/api/v1/documentos/gerar', payload)
       navigate(`/processando/${res.data.job_id}`)
-    } catch {
+    } catch (err) {
+      console.error('ERRO 422 detail:', err?.response?.status, JSON.stringify(err?.response?.data, null, 2))
       setError('Erro ao iniciar geração. Tente novamente.')
     } finally {
       setLoading(false)
