@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body, #root { height: 100%; }
+  body {
+    background-color: #0B1820;
+    color: #E4EDF2;
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-teal text-bg-base font-medium px-7 py-[11px] rounded-md text-sm
+           transition-all duration-150 hover:brightness-110 hover:scale-[1.02]
+           active:scale-[0.97] disabled:opacity-40 disabled:cursor-not-allowed;
+  }
+  .btn-secondary {
+    @apply bg-transparent text-teal border border-teal font-medium px-7 py-[11px]
+           rounded-md text-sm transition-all duration-150
+           hover:bg-teal/10 disabled:opacity-40 disabled:cursor-not-allowed;
+  }
+  .btn-ghost {
+    @apply bg-transparent text-text-muted font-medium px-4 py-2 rounded-md text-sm
+           transition-all duration-150 hover:text-teal hover:bg-teal/5;
+  }
+  .input-field {
+    @apply w-full h-11 px-[14px] bg-surface border border-teal/15 rounded-md
+           text-text-primary text-sm font-light placeholder-text-muted outline-none
+           transition-all duration-200
+           focus:border-teal focus:ring-2 focus:ring-teal/15;
+  }
+  .card {
+    @apply bg-bg-card border border-teal/8 rounded-lg p-8
+           transition-all duration-250 hover:border-teal/25;
+  }
+  .card-accent {
+    @apply card border-t-2 border-t-teal;
+  }
+  .badge-teal    { @apply inline-block px-3 py-1 rounded-full text-[10px] font-medium bg-teal/10 text-teal border border-teal/20; }
+  .badge-success { @apply inline-block px-3 py-1 rounded-full text-[10px] font-medium bg-ns-success/10 text-ns-success border border-ns-success/25; }
+  .badge-warning { @apply inline-block px-3 py-1 rounded-full text-[10px] font-medium bg-ns-warning/10 text-ns-warning border border-ns-warning/25; }
+  .badge-error   { @apply inline-block px-3 py-1 rounded-full text-[10px] font-medium bg-ns-error/10 text-ns-error border border-ns-error/25; }
+}
